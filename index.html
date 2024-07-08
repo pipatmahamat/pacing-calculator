@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pacing Calculator</title>
+  <style>
+    body {
+      background-color: #222;
+      color: #fff;
+      font-family: Arial, sans-serif;
+      padding: 20px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+    }
+
+    .container {
+      max-width: 500px;
+      width: 100%;
+      padding: 20px;
+      background-color: #333;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    }
+
+    label {
+      display: block;
+      margin-bottom: 8px;
+    }
+
+    input[type="text"] {
+      width: calc(100% - 20px);
+      padding: 10px;
+      margin: 8px 0;
+      background-color: #444;
+      border: none;
+      color: #fff;
+      border-radius: 5px;
+      font-size: 16px;
+    }
+
+    .generate_btn {
+      width: 100%;
+      padding: 10px;
+      margin: 8px 0;
+      background-color: #2ecc71;
+      border: none;
+      color: #fff;
+      cursor: pointer;
+      border-radius: 5px;
+      font-size: 16px;
+    }
+
+    .generate_btn:hover {
+      background-color: #27ae60;
+    }
+
+    p {
+      font-size: 24px;
+      text-align: center;
+      margin-top: 20px;
+    }
+
+    #pacing {
+      font-weight: bold;
+      font-size: 32px;
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="container">
+
+    <p>Pacing Calculator</p>
+
+    <label for="response_time">Response Time:</label>
+    <input id="response_time" type="text" placeholder="Response Time (s)"  title="please input response time for 1 user 1 round">
+    <label for="user">Concurrent Users:</label>
+    <input id="user" type="text" placeholder="Concurrent Users">
+    <label for="expt_trxn">Expected Transactions:</label>
+    <input id="expt_trxn" type="text" placeholder="Expected Transactions">
+
+    <button class="generate_btn" type="button" onclick="pacing_calculator()">SUBMIT</button>
+
+    <p>Pacing is: <span id="pacing"></span></p>
+  </div>
+
+
+
+  <script>
+    function pacing_calculator() {
+      const element = document.getElementById("pacing");
+
+      var response_time = parseFloat(document.getElementById("response_time").value);
+      var user = parseFloat(document.getElementById("user").value);
+      var expt_trxn = parseFloat(document.getElementById("expt_trxn").value);
+
+      var duration = 3600;
+      var total_time_use = (expt_trxn / user) * response_time;
+      var time_left = duration - total_time_use;
+      var pacing = time_left / (expt_trxn / user);
+
+      element.textContent = pacing.toFixed(2);
+    }
+  </script>
+
+</body>
+
+</html>
